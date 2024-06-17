@@ -13,7 +13,7 @@ if [ -n "$SSH_PORT" ]; then
 fi
 
 # Check if SSH Strict Host Key Checking is enabled
-if [ -n "$STRICT_CHECKING" && $STRICT_CHECKING == true ]; then
+if [ -n "$STRICT_CHECKING" ] && [ "$STRICT_CHECKING" = true ]; then
 	ssh_command="$ssh_command -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no"
 fi
 
