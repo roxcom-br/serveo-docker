@@ -23,7 +23,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Docker image
-        run: docker build -t ghcr.io/${{ github.repository_owner }}/serveo:latest .
+        run: docker build -t ghcr.io/${{ github.repository_owner }}/serveo:latest-${{runner.arch}} .
 
       - name: Push the Docker image
-        run: docker push ghcr.io/${{ github.repository_owner }}/serveo:latest
+        run: docker push ghcr.io/${{ github.repository_owner }}/serveo:latest-${{runner.arch}}
