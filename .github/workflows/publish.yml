@@ -6,6 +6,11 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - linux/arm64/v8
+          - linux/amd64
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
