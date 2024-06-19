@@ -1,0 +1,25 @@
+name: Publish Docker Image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        platform:
+          - linux/arm64/v8
+          - linux/amd64
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub Registry
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Build the Docker image
+        run: docker build -t ${{ secrets.DOCKERHUB_ORG }}/serveo:latest-${{runner.arch}} .
+
+      - name: Push the Docker image
+        run: docker push ${{ secrets.DOCKERHUB_ORG }}/serveo:latest-${{runner.arch}}
